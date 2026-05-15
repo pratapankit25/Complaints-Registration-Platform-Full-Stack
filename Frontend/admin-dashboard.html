@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="logo font-bold">Complaint Platform <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #FCA5A5; margin-left: 0.5rem; margin-bottom: 0;">Admin Mode</span></div>
+      <div class="nav-links">
+        <span id="userDisplay" class="text-muted"></span>
+        <button id="logoutBtn" class="secondary" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+      </div>
+    </nav>
+
+    <div style="margin-bottom: 2rem;">
+      <h2>All User Complaints</h2>
+    </div>
+
+    <div id="adminComplaintsContainer">
+      <p class="text-muted">Loading complaints...</p>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/complaints.js"></script>
+</body>
+</html>

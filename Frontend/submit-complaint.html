@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Complaint - Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="logo font-bold">Complaint Platform</div>
+      <div class="nav-links">
+        <span id="userDisplay" class="text-muted"></span>
+        <a href="my-complaints.html">My Dashboard</a>
+        <button id="logoutBtn" class="secondary" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+      </div>
+    </nav>
+
+    <div class="glass-card large">
+      <h2>Submit New Complaint</h2>
+      
+      <form id="submitComplaintForm">
+        <div id="submitAlert" class="alert error"></div>
+        <div class="form-group">
+          <label for="complaintText">Please describe your complaint in detail</label>
+          <textarea id="complaintText" required placeholder="What happened?"></textarea>
+        </div>
+        <button type="submit">Continue</button>
+      </form>
+
+      <div id="aiSection" class="hidden mt-6">
+        <div id="aiAlert" class="alert error"></div>
+        <div class="form-group">
+          <label style="color: #818CF8; font-weight: 600;">Follow-up Question from AI Assistant:</label>
+          <p id="aiQuestionText" style="margin: 1rem 0; font-size: 1.1rem; padding: 1rem; background: rgba(79, 70, 229, 0.1); border-left: 4px solid var(--primary); border-radius: 4px;"></p>
+        </div>
+        <div class="form-group">
+          <label for="userAnswer">Your Answer</label>
+          <textarea id="userAnswer" required placeholder="Type your answer here..."></textarea>
+        </div>
+        <button id="finalSubmitBtn">Submit Full Complaint</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/complaints.js"></script>
+</body>
+</html>
