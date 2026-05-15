@@ -123,9 +123,9 @@ export const login = async (req, res) => {
 
     // Set cookie
     res.cookie('token', token, {
-      httpOnly: false, // As per requirements
-      secure: false, // As per requirements
-      sameSite: 'lax', // Relaxed for local testing
+      httpOnly: false,
+      secure: true, // Required for cross-site cookies
+      sameSite: 'none', // Allows cross-site cookies between Render and GitHub Pages
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 
@@ -141,7 +141,11 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie('token');
+  res.clearCookie('token', {
+    httpOnly: false,
+    secure: true,
+    sameSite: 'none'
+  });
   res.json({ message: 'Logged out successfully' });
 };
 
