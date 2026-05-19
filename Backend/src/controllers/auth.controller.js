@@ -6,6 +6,7 @@ import { sendOTPEmail } from '../services/email.service.js';
 import 'dotenv/config';
 
 export const sendOtp = async (req, res) => {
+  console.log('ENTER: sendOtp');
   try {
     const { name, email } = req.body;
     
@@ -44,6 +45,7 @@ export const sendOtp = async (req, res) => {
     // Send email
     await sendOTPEmail(email, otp);
 
+    console.log('EXIT: sendOtp');
     res.json({ message: 'OTP sent successfully' });
   } catch (error) {
     console.error('Send OTP error:', error);
@@ -52,6 +54,7 @@ export const sendOtp = async (req, res) => {
 };
 
 export const register = async (req, res) => {
+  console.log('ENTER: register');
   try {
     const { email, otp, password } = req.body;
 
@@ -87,6 +90,7 @@ export const register = async (req, res) => {
       otp_expiry: null,
     }).where(eq(users.id, userData.id));
 
+    console.log('EXIT: register');
     res.json({ message: 'Registration successful' });
   } catch (error) {
     console.error('Register error:', error);
@@ -95,6 +99,7 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  console.log('ENTER: login');
   try {
     const { email, password } = req.body;
 
@@ -123,12 +128,13 @@ export const login = async (req, res) => {
 
     // Set cookie
     res.cookie('token', token, {
-      httpOnly: false,
+      httpOnly: true,
       secure: true, // Required for cross-site cookies
       sameSite: 'none', // Allows cross-site cookies between Render and GitHub Pages
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 
+    console.log('EXIT: login');
     res.json({
       name: userData.name,
       email: userData.email,
@@ -141,16 +147,20 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
+  console.log('ENTER: logout');
   res.clearCookie('token', {
-    httpOnly: false,
+    httpOnly: true,
     secure: true,
     sameSite: 'none'
   });
+  console.log('EXIT: logout');
   res.json({ message: 'Logged out successfully' });
 };
 
 export const getMe = (req, res) => {
+  console.log('ENTER: getMe');
   // req.user is set by auth middleware
+  console.log('EXIT: getMe');
   res.json({
     name: req.user.name,
     email: req.user.email,

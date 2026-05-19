@@ -4,6 +4,7 @@ import 'dotenv/config';
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export const generateFollowUpQuestion = async (complaintText) => {
+  console.log('ENTER: generateFollowUpQuestion');
   try {
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash-lite',
@@ -13,6 +14,7 @@ Given the following complaint, generate EXACTLY ONE short, relevant follow-up qu
 Complaint: "${complaintText}"`,
     });
     
+    console.log('EXIT: generateFollowUpQuestion');
     return response.text.trim();
   } catch (error) {
     console.error('Error generating AI question:', error);

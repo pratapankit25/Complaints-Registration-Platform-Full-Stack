@@ -1,7 +1,8 @@
 // API Utility
-const BACKEND_BASE_URL = 'https://complaints-registration-platform-full-tqz9.onrender.com/api';
-//'http://127.0.0.1:3000/api';
-
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const BACKEND_BASE_URL = isLocalhost 
+  ? 'http://127.0.0.1:3000/api' 
+  : 'https://complaints-registration-platform-full-tqz9.onrender.com/api';
 async function apiFetch(endpoint, options = {}) {
   const url = `${BACKEND_BASE_URL}${endpoint}`;
 

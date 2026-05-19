@@ -4,6 +4,7 @@ import { eq, desc } from 'drizzle-orm';
 import { generateFollowUpQuestion } from '../services/ai.service.js';
 
 export const getAiQuestion = async (req, res) => {
+  console.log('ENTER: getAiQuestion');
   try {
     const { complaint_text } = req.body;
     
@@ -12,6 +13,7 @@ export const getAiQuestion = async (req, res) => {
     }
 
     const question = await generateFollowUpQuestion(complaint_text);
+    console.log('EXIT: getAiQuestion');
     res.json({ ai_question: question });
   } catch (error) {
     console.error('Get AI Question error:', error);
@@ -20,6 +22,7 @@ export const getAiQuestion = async (req, res) => {
 };
 
 export const submitComplaint = async (req, res) => {
+  console.log('ENTER: submitComplaint');
   try {
     const { complaint_text, ai_question, user_answer } = req.body;
     
@@ -34,6 +37,7 @@ export const submitComplaint = async (req, res) => {
       user_answer,
     }).returning();
 
+    console.log('EXIT: submitComplaint');
     res.json(newComplaint[0]);
   } catch (error) {
     console.error('Submit Complaint error:', error);
@@ -42,11 +46,13 @@ export const submitComplaint = async (req, res) => {
 };
 
 export const getMyComplaints = async (req, res) => {
+  console.log('ENTER: getMyComplaints');
   try {
     const myComplaints = await db.select().from(complaints)
       .where(eq(complaints.user_id, req.user.id))
       .orderBy(desc(complaints.created_at));
       
+    console.log('EXIT: getMyComplaints');
     res.json(myComplaints);
   } catch (error) {
     console.error('Get My Complaints error:', error);
@@ -55,6 +61,7 @@ export const getMyComplaints = async (req, res) => {
 };
 
 export const getAllComplaints = async (req, res) => {
+  console.log('ENTER: getAllComplaints');
   try {
     const allComplaints = await db.select({
       id: complaints.id,
@@ -69,6 +76,7 @@ export const getAllComplaints = async (req, res) => {
     .leftJoin(users, eq(complaints.user_id, users.id))
     .orderBy(desc(complaints.created_at));
     
+    console.log('EXIT: getAllComplaints');
     res.json(allComplaints);
   } catch (error) {
     console.error('Get All Complaints error:', error);
